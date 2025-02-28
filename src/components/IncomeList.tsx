@@ -6,7 +6,8 @@ interface Props {
   incomes: Income[];
   onDelete: (id: string) => void;
   onExport: () => void;
-  onImport: (file: File) => void;
+  onImport: (file: File) => Promise<void>;
+  onAutoExport: () => void;
 }
 
 const IncomeList: React.FC<Props> = ({
