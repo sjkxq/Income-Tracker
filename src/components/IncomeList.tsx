@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import { Income } from "../types";
 
@@ -15,11 +15,23 @@ const IncomeList: React.FC<Props> = ({
   onExport,
   onImport,
 }) => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const toggleCollapse = () => {
+    setCollapsed(!collapsed);
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">收入记录</h2>
         <div className="space-x-2">
+          <button
+            onClick={toggleCollapse}
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+          >
+            {collapsed ? "显示" : "隐藏"}
+          </button>
           <label className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer">
             导入
             <input
@@ -39,28 +51,30 @@ const IncomeList: React.FC<Props> = ({
           </button>
         </div>
       </div>
-      <div className="space-y-4">
-        {incomes.map((income) => (
-          <div
-            key={income.id}
-            className="flex justify-between items-center p-4 bg-white rounded-lg shadow"
-          >
-            <div>
-              <div className="font-medium">
-                {format(income.date, "yyyy-MM-dd")}
-              </div>
-              <div className="text-gray-500">{income.description}</div>
-            </div>
-            <div className="text-green-600">¥{income.amount.toFixed(2)}</div>
-            <button
-              onClick={() => onDelete(income.id)}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+      {!collapsed && (
+        <div className="space-y-4">
+          {incomes.map((income) => (
+            <div
+              key={income.id}
+              className="flex justify-between items-center p-4 bg-white rounded-lg shadow"
             >
-              删除
-            </button>
-          </div>
-        ))}
-      </div>
+              <div>
+                <div className="font-medium">
+                  {format(income.date, "yyyy-MM-dd")}
+                </div>
+                <div className="text-gray-500">{income.description}</div>
+              </div>
+              <div className="text-green-600">¥{income.amount.toFixed(2)}</div>
+              <button
+                onClick={() => onDelete(income.id)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                删除
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

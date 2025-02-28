@@ -42,20 +42,24 @@ function App() {
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
+        const start = new Date(document.getElementById("start")?.["value"]);
+        const end = new Date(document.getElementById("end")?.["value"]);
         const imported = JSON.parse(e.target?.result as string);
         if (
           Array.isArray(imported) &&
           imported.every((i) => i.id && i.date && i.amount)
         ) {
           setIncomes(
-            imported.map((i) => ({
-              ...i,
-              date:
-                new Date(i.date) instanceof Date &&
-                !isNaN(new Date(i.date).getTime())
-                  ? new Date(i.date)
-                  : new Date(),
-            }))
+            imported
+              .filter((i) => i.date >= start && i.date <= end)
+              .map((i) => ({
+                ...i,
+                date:
+                  new Date(i.date) instanceof Date &&
+                  !isNaN(new Date(i.date).getTime())
+                    ? new Date(i.date)
+                    : new Date(),
+              }))
           );
         }
       } catch (error) {
@@ -69,13 +73,13 @@ function App() {
     <div className="max-w-lg mx-auto p-4 space-y-8">
       <h1 className="text-2xl font-bold text-center">收入追踪器</h1>
       <IncomeForm onAdd={handleAdd} />
+      <Statistics incomes={incomes} />
       <IncomeList
         incomes={incomes}
         onDelete={handleDelete}
         onExport={handleExport}
         onImport={handleImport}
       />
-      <Statistics incomes={incomes} />
     </div>
   );
 }
