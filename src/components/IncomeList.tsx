@@ -74,12 +74,15 @@ const IncomeList: React.FC<Props> = ({
               className="flex justify-between items-center p-4 bg-white rounded-lg shadow"
             >
               <div>
-                {/* 显示收入日期 */}
                 <div className="font-medium">
                   {format(income.date, "yyyy-MM-dd")}
+                  {income.remark && (
+                    <span className="text-sm text-gray-400"> - {income.remark}</span>
+                  )}
                 </div>
-                {/* 显示收入描述 */}
-                <div className="text-gray-500">{income.description}</div>
+                {income.remark && (
+                  <div className="text-sm text-gray-400">{income.remark}</div>
+                )}
               </div>
               {/* 显示收入金额 */}
               <div className="text-green-600">¥{income.amount.toFixed(2)}</div>

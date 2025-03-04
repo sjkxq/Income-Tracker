@@ -1,11 +1,5 @@
-@echo off  :: 关闭命令行回显，使命令行窗口不显示执行的命令
-cd /d %~dp0  :: 切换当前目录到批处理文件所在的目录
-
-               :: %~dp0 是一个特殊的变量，表示批处理文件所在的完整路径
-npm run dev  :: 执行 npm 命令，运行名为 "dev" 的脚本
-
-               :: 通常用于启动开发服务器或进行开发环境下的构建
-start http://localhost:5176  :: 使用默认浏览器打开指定的 URL
-
-                               :: 这里打开的是本地开发服务器地址，端口为 5176
-pause  :: 暂停批处理文件的执行，等待用户按下任意键继续
+@echo off  
+cd /d %~dp0  
+npm run dev
+start http://localhost:5176
+pause
