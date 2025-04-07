@@ -28,7 +28,7 @@
     // 返回组件的JSX结构
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-bold">月度统计</h2>
+        <h2 className="text-xl font-bold">金额统计</h2>
         <button
           // 点击按钮切换isAnnual状态
           onClick={() => setIsAnnual(!isAnnual)}

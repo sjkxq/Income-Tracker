@@ -76,9 +76,6 @@ const IncomeList: React.FC<Props> = ({
               <div>
                 <div className="font-medium">
                   {format(income.date, "yyyy-MM-dd")}
-                  {income.remark && (
-                    <span className="text-sm text-gray-400"> - {income.remark}</span>
-                  )}
                 </div>
                 {income.remark && (
                   <div className="text-sm text-gray-400">{income.remark}</div>
