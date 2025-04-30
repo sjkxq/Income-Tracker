@@ -29,6 +29,9 @@ const IncomeList: React.FC<Props> = ({
     setCollapsed(!collapsed);
   };
 
+  // 对收入记录按日期降序排序
+  const sortedIncomes = [...incomes].sort((a, b) => b.date.getTime() - a.date.getTime());
+
   // 渲染组件的JSX结构
   return (
     <div>
@@ -67,8 +70,8 @@ const IncomeList: React.FC<Props> = ({
       {/* 如果不处于折叠状态，显示收入记录列表 */}
       {!collapsed && (
         <div className="space-y-4">
-          {/* 遍历收入记录数组，生成每个记录的卡片 */}
-          {incomes.map((income) => (
+          {/* 遍历排序后的收入记录数组，生成每个记录的卡片 */}
+          {sortedIncomes.map((income) => (
             <div
               key={income.id}
               className="flex justify-between items-center p-4 bg-white rounded-lg shadow"
