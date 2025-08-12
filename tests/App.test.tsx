@@ -114,7 +114,8 @@ describe('App 组件', () => {
     
     // 等待第二个收入记录被添加
     await waitFor(() => {
-      expect(screen.getByText('¥2000.00')).toBeInTheDocument();
+      const amountElements = screen.getAllByText('¥2000.00');
+      expect(amountElements).toHaveLength(2); // 应该有两个¥2000.00元素：一个在统计中，一个在列表中
     });
     
     // 验证月度统计信息

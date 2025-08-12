@@ -110,8 +110,18 @@ describe('IncomeList 组件', () => {
 
   test('应该按日期降序排序显示收入', () => {
     // 创建日期不同的收入
-    const oldIncome = createTestIncomes(1, { date: new Date(2022, 1, 1) })[0];
-    const newIncome = createTestIncomes(1, { date: new Date(2023, 1, 1) })[0];
+    const oldIncome = {
+      id: 'old-income',
+      amount: 1000,
+      date: new Date(2022, 1, 1),
+      remark: '旧收入'
+    };
+    const newIncome = {
+      id: 'new-income',
+      amount: 2000,
+      date: new Date(2023, 1, 1),
+      remark: '新收入'
+    };
     const testIncomes = [oldIncome, newIncome];
     
     render(

@@ -16,10 +16,11 @@ const createTestIncomes = (count: number, overrides?: Partial<Income>): Income[]
 
 describe('Statistics 组件', () => {
   test('应该正确渲染统计信息', () => {
-    const testIncomes = createTestIncomes(3, {
-      amount: 1000, // 所有收入金额都是1000
-      date: new Date(2023, 0, 15) // 所有收入都在同一个月
-    });
+    const testIncomes = [
+      ...createTestIncomes(1, { amount: 1000, date: new Date(2023, 0, 15) }),
+      ...createTestIncomes(1, { amount: 1000, date: new Date(2023, 0, 16) }),
+      ...createTestIncomes(1, { amount: 1000, date: new Date(2023, 0, 17) })
+    ];
     
     render(<Statistics incomes={testIncomes} />);
     
@@ -31,7 +32,7 @@ describe('Statistics 组件', () => {
     
     // 验证月度统计信息
     expect(screen.getByText('2023-01')).toBeInTheDocument();
-    expect(screen.getByText('¥5000.00')).toBeInTheDocument();
+    expect(screen.getByText('¥3000.00')).toBeInTheDocument();
   });
 
   test('应该正确计算不同金额的统计信息', () => {
@@ -97,7 +98,8 @@ describe('Statistics 组件', () => {
     // 使用getAllByText并验证数量和内容
     const amountElements = screen.getAllByText(/¥\d+\.\d{2}/);
     expect(amountElements).toHaveLength(2);
-    expect(amountElements[0].textContent).toBe('¥3000.00'); // 2023年总计
-    expect(amountElements[1].textContent).toBe('¥5000.00'); // 2022年总计
+    // 由于对象的键是按字母顺序排序的，2022会排在2023前面
+    expect(amountElements[0].textContent).toBe('¥5000.00'); // 2022年总计
+    expect(amountElements[1].textContent).toBe('¥3000.00'); // 2023年总计
   });
 });

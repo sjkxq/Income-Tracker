@@ -40,8 +40,8 @@ describe('IncomeForm 组件', () => {
     
     // 验证表单被重置
     await waitFor(() => {
-      const remarkInput = screen.getByPlaceholderText(/备注/i);
-      const amountInput = screen.getByPlaceholderText(/金额/i);
+      const remarkInput = screen.getByPlaceholderText(/备注/i) as HTMLInputElement;
+      const amountInput = screen.getByPlaceholderText(/金额/i) as HTMLInputElement;
       expect(remarkInput).toBeInTheDocument();
       expect(amountInput).toBeInTheDocument();
       // 检查值是否为空或空字符串
