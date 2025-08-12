@@ -35,6 +35,7 @@ export const IncomeForm: React.FC<Props> = ({ onAdd }) => {
           selected={date}
           onChange={(date: Date) => setDate(date)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
+          placeholderText="日期"
         />
       </div>
       <div>
@@ -45,6 +46,7 @@ export const IncomeForm: React.FC<Props> = ({ onAdd }) => {
           onChange={(e) => setAmount(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
           step="0.01"
+          placeholder="金额"
         />
       </div>
       <div>
@@ -54,6 +56,7 @@ export const IncomeForm: React.FC<Props> = ({ onAdd }) => {
           value={remark}
           onChange={(e) => setRemark(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2"
+          placeholder="备注"
         />
       </div>
       <button
