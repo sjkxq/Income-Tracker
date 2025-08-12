@@ -4,6 +4,11 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 // 导入 vite-plugin-pwa 插件，用于支持 PWA（渐进式网页应用）
 import { VitePWA } from 'vite-plugin-pwa'
+// 导入 vite-plugin-singlefile 插件，用于将所有资源内联到一个HTML文件
+import { viteSingleFile } from 'vite-plugin-singlefile'
+
+// 检查是否为单文件构建模式
+const isSingleFileBuild = process.env.BUILD_MODE === 'single'
 
 // 导出默认的 Vite 配置
 export default defineConfig({
@@ -42,7 +47,9 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }),
+    // 仅在单文件构建模式下使用 viteSingleFile 插件
+    ...(isSingleFileBuild ? [viteSingleFile()] : [])
   ],
   // 配置开发服务器
   server: {
@@ -50,5 +57,34 @@ export default defineConfig({
     allowedHosts: true,
     // 服务器端口号
     port: 5176
+  },
+  // 构建配置
+  build: {
+    // 根据构建模式应用不同的配置
+    ...(isSingleFileBuild
+      ? {
+          // 单文件构建模式的配置
+          cssCodeSplit: false,
+          assetsInlineLimit: Infinity,
+          rollupOptions: {
+            output: {
+              // 空配置，让vite-plugin-singlefile处理打包逻辑
+            },
+          },
+        }
+      : {
+          // 常规构建模式的配置
+          cssCodeSplit: true,
+          assetsInlineLimit: 4096, // 默认值
+          rollupOptions: {
+            output: {
+              // 常规构建的输出配置
+              manualChunks: {
+                vendor: ['react', 'react-dom'],
+                // 可以根据需要添加更多的代码分割配置
+              },
+            },
+          },
+        }),
   }
 })

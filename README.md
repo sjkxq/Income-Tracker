@@ -26,13 +26,25 @@ npm run dev
 ```
 
 ## 🚀 生产构建
+
+### 常规构建模式
 ```bash
 npm run build
 ```
 构建产物将生成在 `dist/` 目录，包含：
 - 静态资源哈希处理
+- 代码分割优化
 - 代码压缩优化
 - 自动生成的Service Worker
+
+### 单文件构建模式
+```bash
+npm run build:single
+```
+将所有资源（HTML、CSS、JavaScript、图片等）打包到一个单独的HTML文件中：
+- 无需服务器，可直接在浏览器中打开
+- 便于分享和离线使用
+- 适合嵌入到其他应用或系统中
 
 ### 预览构建结果
 ```bash
