@@ -51,43 +51,9 @@ npm run build:single
 npm run preview
 ```
 
-## 🚧 项目结构
-```bash
-.
-├── public/          # 静态资源
-├── src/
-│   ├── components/  # React组件
-│   │   ├── IncomeForm.tsx   # 收入表单
-│   │   ├── IncomeList.tsx   # 收入列表 
-│   │   └── Statistics.tsx   # 统计模块
-│   ├── App.tsx      # 根组件
-│   └── main.tsx     # 入口文件
-├── tailwind.config.js  # Tailwind配置
-└── vite.config.ts   # Vite配置
-```
-
 ## 📦 技术栈
 - **框架**: React 18
 - **构建工具**: Vite 4
 - **样式**: TailwindCSS 3
 - **类型系统**: TypeScript 5
 - **PWA支持**: vite-plugin-pwa 0.16
-
-## 🔧 部署指南
-### GitHub Pages
-1. 安装部署工具
-```bash
-npm install gh-pages --save-dev
-```
-
-2. 添加部署脚本（已存在于package.json）：
-```json
-"scripts": {
-  "deploy": "gh-pages -d dist"
-}
-```
-
-3. 执行部署
-```bash
-npm run deploy
-```
